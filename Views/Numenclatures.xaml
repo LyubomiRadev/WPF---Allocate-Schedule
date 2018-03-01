@@ -1,0 +1,172 @@
+﻿<catel:Window x:Class="LogInForm.Views.Numenclatures"
+              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:catel="http://catel.codeplex.com"
+              xmlns:local="clr-namespace:LogInForm.ViewModels"
+              xmlns:local2="clr-namespace:LogInForm.Models"
+              xmlns:sys="clr-namespace:System;assembly=mscorlib"
+              WindowStartupLocation="CenterScreen"
+              Width="700"
+              Height="700"
+              ResizeMode="NoResize"
+              x:Name="ShiftWindow">
+
+    <Window.Resources>
+        <!--Create Button-->
+        <Style x:Key="createButton"
+               TargetType="{x:Type Button}">
+            <Setter Property="Width"
+                    Value="70" />
+            <Setter Property="Height"
+                    Value="35" />
+            <Setter Property="Margin"
+                    Value="0,0,20,0" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border CornerRadius="20"
+                                x:Name="Btn"
+                                Background="#00bed3">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver"
+                                     Value="True">
+                                <Setter TargetName="Btn"
+                                        Property="Background"
+                                        Value="#009cad" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!--DeleteButton-->
+        <Style x:Key="deleteButton"
+               TargetType="{x:Type Button}">
+            <Setter Property="Width"
+                    Value="70" />
+            <Setter Property="Height"
+                    Value="35" />
+            <Setter Property="Margin"
+                    Value="0,0,20,0" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border CornerRadius="20"
+                                x:Name="Btn"
+                                Background="#ff1905">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver"
+                                     Value="True">
+                                <Setter TargetName="Btn"
+                                        Property="Background"
+                                        Value="#D21502" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="shiftButtons"
+               TargetType="{x:Type Button}">
+            <Setter Property="Width"
+                    Value="70" />
+            <Setter Property="Height"
+                    Value="70" />
+            <Setter Property="Margin"
+                    Value="5" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border CornerRadius="20"
+                                x:Name="Btn"
+                                Background="#00af1a">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver"
+                                     Value="True">
+                                <Setter TargetName="Btn"
+                                        Property="Background"
+                                        Value="#00db20" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Window.Resources>
+
+    <Grid Background="#b800c1">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="50" />
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right">
+
+            <Button Content="Create"
+                    Style="{StaticResource createButton}"
+                    Command="{Binding CreateNewShift}" />
+
+            <Button Content="Delete"
+                    Style="{StaticResource deleteButton}"
+                    Command="{Binding DeleteShiftCommand}"/>
+
+        </StackPanel>
+
+        <ItemsControl Grid.Row="1"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Center"
+                      Margin="0,0,0,150"
+                      ItemsSource="{Binding Shifts}">
+
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid Columns="7" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+
+            <!-- ItemTemplate -->
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <CheckBox IsChecked="{Binding IsSelectedForDelete}"
+                                  Grid.Row="0"
+                                  Width="20"
+                                  Height="20"
+                                  Margin="50,10,0,50"
+                                  Panel.ZIndex="1" />
+
+                        <Button Content="{Binding Abriviature}"
+                                Command="{Binding ElementName=ShiftWindow, Path=DataContext.EditShiftCommand}"
+                                CommandParameter="{Binding }"
+                                Style="{StaticResource shiftButtons}"
+                                Grid.Row="0"
+                                Panel.ZIndex="0" />
+
+                    </Grid>
+
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+
+        </ItemsControl>
+    </Grid>
+</catel:Window>

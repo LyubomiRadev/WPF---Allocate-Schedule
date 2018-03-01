@@ -1,0 +1,189 @@
+﻿<catel:Window x:Class="LogInForm.Views.MainWindow"
+              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:catel="http://catel.codeplex.com"
+              ResizeMode="NoResize"
+              WindowStartupLocation="CenterScreen"
+              Width="700"
+              Height="300">
+
+    <Window.Resources>
+        
+        <!--Logn Button Style-->
+        <Style x:Key="logInBtn"
+               TargetType="{x:Type Button}"
+               BasedOn="{StaticResource defaultButtons}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border CornerRadius="20"
+                                x:Name="Btn"
+                                Background="#00bed3">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver"
+                                     Value="True">
+                                <Setter TargetName="Btn"
+                                        Property="Background"
+                                        Value="#009cad" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!--Cancel Button Style-->
+        <Style x:Key="cancelInBtn"
+               TargetType="{x:Type Button}"
+               BasedOn="{StaticResource defaultButtons}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border CornerRadius="20"
+                                x:Name="Btn"
+                                Background="#ff1905">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver"
+                                     Value="True">
+                                <Setter TargetName="Btn"
+                                        Property="Background"
+                                        Value="#D21502" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid x:Name="LayoutRoot"
+          Background="#00637c">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="110" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Text="Log in"
+                   Grid.Row="0"
+                   Grid.Column="1"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   FontWeight="Bold"
+                   FontSize="30"
+                   Margin="0,0,100,0" />
+
+        <!--LogIn TextBoxes-->
+        <Grid Grid.Row="1"
+              Grid.ColumnSpan="2">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="110" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!--User/Pass Textboxes-->
+            <StackPanel Orientation="Vertical"
+                        Grid.Column="0">
+
+                <TextBlock Text="Username:"
+                           FontWeight="Bold"
+                           FontSize="20"
+                           TextAlignment="Center"
+                           Margin="0,20,0,20" />
+
+                <TextBlock Text="Password:"
+                           FontWeight="Bold"
+                           FontSize="20"
+                           TextAlignment="Center" />
+
+            </StackPanel>
+
+            <StackPanel Orientation="Vertical"
+                        Grid.Column="1"
+                        HorizontalAlignment="Left"
+                        Margin="0,22,0,0">
+
+                <Border BorderThickness="1"
+                        Width="230"
+                        BorderBrush="Black">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox DockPanel.Dock="Left"
+                                 BorderThickness="0"
+                                 Width="200"
+                                 Height="30"
+                                 FontSize="15"
+                                 Margin="0,5,0,0"
+                                 Text="{Binding UserName}"/>
+
+                        <Image Source="\.\.\Images\usersImage.png"
+                               HorizontalAlignment="Left"
+                               Width="30" />
+                    </StackPanel>
+
+                </Border>
+
+            </StackPanel>
+
+            <StackPanel Orientation="Vertical"
+                        Grid.Column="1"
+                        HorizontalAlignment="Left"
+                        Margin="0,65,0,0">
+
+                <Border BorderThickness="1"
+                        Width="230"
+                        BorderBrush="Black">
+                    <StackPanel Orientation="Horizontal">
+                        <PasswordBox DockPanel.Dock="Left"
+                                 BorderThickness="0"
+                                 Width="200"
+                                 Height="30"
+                                 FontSize="15"
+                                 Margin="0,5,0,0"
+                                 Name="password" />
+
+                        <Image Source="\.\.\Images\passwordpng.png"
+                               HorizontalAlignment="Left"
+                               Width="30" />
+                    </StackPanel>
+
+                </Border>
+
+            </StackPanel>
+        </Grid>
+
+        <!--LogIn Buttons-->
+        <StackPanel Orientation="Horizontal"
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    Margin="0,0,30,30">
+
+            <Button Content="Log in"
+                    Command="{Binding OpenControlPanelCommand}"
+                    Width="60"
+                    Height="30"
+                    Style="{StaticResource logInBtn}"
+                    CommandParameter="{Binding ElementName=password}"/>
+
+            <Button Content="Cancel"
+                    Command="{Binding CloseWindow}"
+                    Width="60"
+                    Height="30"
+                    Margin="10,0,0,0"
+                    Style="{StaticResource cancelInBtn}"/>
+
+        </StackPanel>
+    </Grid>
+
+</catel:Window>
